@@ -42,6 +42,7 @@
               <span class="badge badge-primary badge-pill">{{index+1}}</span>
               <a v-if="product.toUpperCase() === 'МОЛОКО'" type="button" data-toggle="modal" data-target="#exampleModalCenter">{{product}}</a>
               <a v-else-if="product.toLowerCase() === 'milk'" type="button" data-toggle="modal" data-target="#exampleModalCenter">МОЛОКО</a>
+              <a v-else-if="product.toUpperCase() === 'ХЛЕБ'" type="button" data-toggle="modal" data-target="#exampleModalCenter2">{{product}}</a>
               <a v-else>{{product}}</a>
               <button v-on:click="remove(index)" type="submit" class="btn btn-outline-danger float-right">Удалить</button>
             </li>
@@ -61,6 +62,26 @@
               <div class="modal-body">
                 Молоко — питательная жидкость, вырабатываемая молочными железами самок млекопитающих во время лактации.
                 Естественное назначение молока — вскармливание потомства, которое ещё не способно переваривать другую пищу.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Хлеб</h5>
+                <button type="button" class="close text-danger bg-light py-1 px-2" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Хлебобулочное изделие, получаемое путём выпекания теста (состоящего как минимум из муки и воды), разрыхлённого дрожжами или закваской.
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>

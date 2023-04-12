@@ -38,7 +38,7 @@
           </div>
             <ul class="list-group">
             <!-- Loop -->
-            <li v-for="(product, index) in cart" class="list-group-item list-group-item-action list-group-item-primary text-uppercase" style="font-size: 1.5rem; color: white">
+            <li v-for="(product, index) in cart" class="list-group-item list-group-item-action list-group-item-primary text-uppercase text-light" style="font-size: 1.5rem;">
               <span class="badge badge-primary badge-pill">{{index+1}}</span>
               <a v-if="product.toUpperCase() === 'МОЛОКО'" type="button" data-toggle="modal" data-target="#exampleModalCenter">{{product}}</a>
               <a v-else-if="product.toLowerCase() === 'milk'" type="button" data-toggle="modal" data-target="#exampleModalCenter">МОЛОКО</a>

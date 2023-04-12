@@ -1,1 +1,168 @@
-<h>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SHOP</title>
+    <link rel="icon" href="ico/favicon.ico" tуpe="imagе/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="ico/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="ico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="ico/favicon-16x16.png">
+    <link rel="manifest" href="ico/site.webmanifest">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/bootstrap-icons.css">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <!-- JavaScript -->
+    <!-- Vue, Fa, jQuery -->
+    <script src="bootstrap/vue.js"></script>
+    <script src="bootstrap//jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="card min-vh-100">
+      <header>
+        <div class="card-header">
+          <div class="card-title text-center">
+            <h2 class="text-primary" style="font-family: sans-serif;">Список покупок</h2>
+          </div>
+          <img id="anim" src="ico/favicon-32x32.png" style="position: relative; left: -32;">
+        </div>
+      </header>
+
+      <main>
+        <div class="card-body mx-auto mb-5" id="shopping_cart">
+          <div class="input-group-prepend my-3">
+            <input type="text" class="form-control" style="font-size: 1.5rem;" v-model="list" @keyup.enter="addList()">
+          </div>
+            <ul class="list-group">
+            <!-- Loop -->
+            <li v-for="(product, index) in cart" class="list-group-item list-group-item-action list-group-item-primary text-uppercase" style="font-size: 1.5rem; color: white">
+              <span class="badge badge-primary badge-pill">{{index+1}}</span>
+              <a v-if="product.toUpperCase() === 'МОЛОКО'" type="button" data-toggle="modal" data-target="#exampleModalCenter">{{product}}</a>
+              <a v-else-if="product.toLowerCase() === 'milk'" type="button" data-toggle="modal" data-target="#exampleModalCenter">МОЛОКО</a>
+              <a v-else>{{product}}</a>
+              <button v-on:click="remove(index)" type="submit" class="btn btn-outline-danger float-right">Удалить</button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Молоко</h5>
+                <button type="button" class="close text-danger bg-light py-1 px-2" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Молоко — питательная жидкость, вырабатываемая молочными железами самок млекопитающих во время лактации.
+                Естественное назначение молока — вскармливание потомства, которое ещё не способно переваривать другую пищу.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal -->
+      </main>
+
+      <footer>
+        <div class="card-footer text-center fixed-bottom">
+          <h4 class="text-primary my-auto" id="current_date_time"></h4>
+        </div>
+      </footer>
+    </div>
+    <i id="up" class="bi bi-arrow-up-square text-primary fixed-bottom text-right mr-2" style="font-size: 2rem; display: none;" role="button"></i>
+
+    <script>
+      var shopping_cart = new Vue({
+        el: '#shopping_cart',
+        data: {
+          list: '',
+          cart: []
+        },
+        methods: {
+          remove(index) {
+            // Удаление элемента
+            this.cart.splice(index, 1);
+          },
+          addList: function() {
+            // Замена элемента
+            if (this.list == 'песок') {
+              this.list = 'сахар';
+            }
+            // Добавление элемента
+            this.cart.push(this.list);
+            this.list = '';
+          }
+        },
+      })
+    </script>
+    <script type="text/javascript">
+      /* функция добавления ведущих нулей */
+      /* (если число меньше десяти, перед числом добавляем ноль) */
+      function zero_first_format(value)
+      {
+          if (value < 10)
+          {
+              value='0' + value
+          }
+          return value
+      }
+      /* функция получения текущей даты и времени */
+      function date_time()
+      {
+          var current_datetime = new Date()
+          var day = zero_first_format(current_datetime.getDate())
+          var month = zero_first_format(current_datetime.getMonth()+1)
+          var year = current_datetime.getFullYear()
+          var hours = zero_first_format(current_datetime.getHours())
+          var minutes = zero_first_format(current_datetime.getMinutes())
+          var seconds = zero_first_format(current_datetime.getSeconds())
+
+          return day+"."+month+"."+year+" "+hours+":"+minutes+":"+seconds
+      }
+      /* каждую секунду получаем текущую дату и время */
+      /* и вставляем значение в блок с id "current_date_time" */
+      setInterval(function () {
+          document.getElementById('current_date_time').innerHTML = date_time()
+      }, 1000)
+    </script>
+    <script> // Кнопка вверх jQuery
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > 100) {
+          if ($('#up').is(':hidden')) {
+            $('#up').css({opacity: 0.5}).fadeIn('slow');
+          }
+        } else { $('#up').stop(true, false).fadeOut('fast'); }
+      });
+      $('#up').click(function() {
+          $('html, body').stop().animate({scrollTop: 0}, 1000);
+      });
+    </script>
+    <script> // Анимация jQuery
+      $(document).ready(function() {
+          function loop() {
+            $('#anim').css({left: -32});
+            $('#anim').animate ({
+              left: '+=97vw',
+            }, 30000, 'linear', function() {
+                loop();
+            });
+          }
+          loop();
+      });
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- Popper, Bootstrap -->
+    <script src="popper.js/dist/umd/popper.min.js"></script>
+    <script src="bootstrap/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,1 @@
+Этот сайт https://ovvladimir.github.io/shopping_list/ облегчит ваш поход в магазин.

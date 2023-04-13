@@ -31,8 +31,8 @@
         </div>
       </header>
 
-      <main>
-        <div class="card-body mx-auto mb-5" id="shopping_cart">
+      <main id="shopping_cart">
+        <div class="card-body mx-auto mb-5">
           <div class="input-group-prepend my-3">
             <input type="text" class="form-control" style="font-size: 1.5rem;" v-model="list" @keyup.enter="addList()">
           </div>
@@ -40,9 +40,9 @@
             <!-- Loop -->
             <li v-for="(product, index) in cart" class="list-group-item list-group-item-action list-group-item-primary text-uppercase text-white" style="font-size: 1.5rem;">
               <span class="badge badge-primary badge-pill">{{index+1}}</span>
-              <a v-if="product.toUpperCase() === 'МОЛОКО'" type="button" data-toggle="modal" data-target="#exampleModalCenter">{{product}}</a>
-              <a v-else-if="product.toLowerCase() === 'milk'" type="button" data-toggle="modal" data-target="#exampleModalCenter">МОЛОКО</a>
-              <a v-else-if="product.toUpperCase() === 'ХЛЕБ'" type="button" data-toggle="modal" data-target="#exampleModalCenter2">{{product}}</a>
+              <a v-if="product.toUpperCase() === 'МОЛОКО'" v-on:click="add(product.toUpperCase())" type="button" data-toggle="modal" data-target="#exampleModalCenter">{{product}}</a>
+              <a v-else-if="product.toLowerCase() === 'milk'" v-on:click="add('МОЛОКО')" type="button" data-toggle="modal" data-target="#exampleModalCenter">МОЛОКО</a>
+              <a v-else-if="product.toUpperCase() === 'ХЛЕБ'" v-on:click="add(product.toUpperCase())" type="button" data-toggle="modal" data-target="#exampleModalCenter">{{product}}</a>
               <a v-else>{{product}}</a>
               <button v-on:click="remove(index)" type="submit" class="btn btn-outline-danger float-right">Удалить</button>
             </li>
@@ -54,34 +54,16 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Молоко</h5>
+                <h5 class="modal-title">{{change}}</h5>
                 <button type="button" class="close text-danger bg-light py-1 px-2" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                Молоко — питательная жидкость, вырабатываемая молочными железами самок млекопитающих во время лактации.
-                Естественное назначение молока — вскармливание потомства, которое ещё не способно переваривать другую пищу.
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End Modal -->
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Хлеб</h5>
-                <button type="button" class="close text-danger bg-light py-1 px-2" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Хлебобулочное изделие, получаемое путём выпекания теста (состоящего как минимум из муки и воды), разрыхлённого дрожжами или закваской.
+                <p v-if="change === 'МОЛОКО'">Молоко — питательная жидкость, вырабатываемая молочными железами самок млекопитающих во время лактации. 
+                  Естественное назначение молока — вскармливание потомства, которое ещё не способно переваривать другую пищу.</p>
+                <p v-else-if="change === 'ХЛЕБ'">Хлебобулочное изделие, получаемое путём выпекания теста (состоящего как минимум из муки и воды), 
+                  разрыхлённого дрожжами или закваской.</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
@@ -105,12 +87,17 @@
         el: '#shopping_cart',
         data: {
           list: '',
-          cart: []
+          cart: [],
+          change: null
         },
         methods: {
           remove(index) {
             // Удаление элемента
             this.cart.splice(index, 1);
+          },
+          // Смена модального окна
+          add(p) {
+            this.change = p;
           },
           addList: function() {
             // Замена элемента
@@ -169,7 +156,7 @@
     <script> // Анимация jQuery
       $(document).ready(function() {
           function loop() {
-            $('#anim').css({left: -32});
+            $('#anim').css({left: -33});
             $('#anim').animate ({
               left: '+=97vw',
             }, 30000, 'linear', function() {

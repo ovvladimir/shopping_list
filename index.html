@@ -34,7 +34,7 @@
       <main id="shopping_cart">
         <div class="card-body mx-auto mb-5">
           <div class="input-group-prepend my-3">
-            <input type="text" class="form-control" style="font-size: 1.5rem;" v-model="list" @keyup.enter="addList()">
+            <input type="text" placeholder="введите покупку" class="form-control" style="font-size: 1.5rem;" v-model="list" v-on:keyup.enter="addList()">
           </div>
             <ul class="list-group">
             <!-- Loop -->
@@ -80,7 +80,9 @@
         </div>
       </footer>
     </div>
-    <i id="up" class="bi bi-arrow-up-square text-primary fixed-bottom text-right mr-2" style="font-size: 2rem; display: none;" role="button"></i>
+    <i id="up" class="bi bi-arrow-up-square text-primary fixed-bottom text-right mr-2"
+      style="font-size: 2rem; display: none;" role="button">
+    </i>
 
     <script>
       var shopping_cart = new Vue({

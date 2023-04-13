@@ -53,15 +53,15 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">{{change}}</h5>
+                <h5 class="modal-title">{{choice}}</h5>
                 <button type="button" class="close text-danger bg-light py-1 px-2" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <p v-if="change === 'МОЛОКО'">Молоко — питательная жидкость, вырабатываемая молочными железами самок млекопитающих во время лактации. 
+                <p v-if="choice === 'МОЛОКО'">Молоко — питательная жидкость, вырабатываемая молочными железами самок млекопитающих во время лактации. 
                   Естественное назначение молока — вскармливание потомства, которое ещё не способно переваривать другую пищу.</p>
-                <p v-else-if="change === 'ХЛЕБ'">Хлебобулочное изделие, получаемое путём выпекания теста (состоящего как минимум из муки и воды), 
+                <p v-else-if="choice === 'ХЛЕБ'">Хлебобулочное изделие, получаемое путём выпекания теста (состоящего как минимум из муки и воды), 
                   разрыхлённого дрожжами или закваской.</p>
               </div>
               <div class="modal-footer">
@@ -89,16 +89,16 @@
         data: {
           list: '',
           cart: [],
-          change: null
+          choice: null
         },
         methods: {
           remove(index) {
             // Удаление элемента
             this.cart.splice(index, 1);
           },
-          // Смена модального окна
+          // Выбор модального окна
           add(p) {
-            this.change = p;
+            this.choice = p;
           },
           addList: function() {
             // Замена элемента

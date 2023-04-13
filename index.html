@@ -23,11 +23,11 @@
   <body>
     <div class="card min-vh-100">
       <header>
-        <div class="card-header">
+        <div class="card-header pb-0">
           <div class="card-title text-center">
             <h2 class="text-primary" style="font-family: sans-serif;">Список покупок</h2>
           </div>
-          <img id="anim" src="ico/favicon-32x32.png" style="position: relative; left: -32;">
+          <img id="anim" src="ico/favicon-32x32.png" style="position: relative; left: -33;">
         </div>
       </header>
 
@@ -153,22 +153,17 @@
           $('html, body').stop().animate({scrollTop: 0}, 1000);
       });
     </script>
-    <script> // Анимация jQuery
-      $(document).ready(function() {
-          function loop() {
-            $('#anim').css({left: -33});
-            $('#anim').animate ({
-              left: '+=97vw',
-            }, 30000, 'linear', function() {
-                loop();
-            });
-          }
-          loop();
-      });
+    <script> // Анимация JavaScript
+      document.getElementById("anim").animate([
+        { transform: 'translateX(-2vw)' }, 
+        { transform: 'translateX(98vw)' }
+      ], {
+        duration: 30000,
+        iterations: Infinity
+      })
     </script>
 
-    <!-- Optional JavaScript -->
-    <!-- Popper, Bootstrap -->
+    <!-- Popper, Bootstrap js -->
     <script src="popper.js/dist/umd/popper.min.js"></script>
     <script src="bootstrap/bootstrap.bundle.min.js"></script>
 

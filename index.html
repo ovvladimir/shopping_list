@@ -74,14 +74,14 @@
       </main>
 
       <footer>
-        <div class="card-footer text-center fixed-bottom">
-          <h4 class="text-primary my-auto" id="current_date_time"></h4>
+        <div class="card-footer text-center fixed-bottom py-2">
+          <h4 class="text-primary" id="current_date_time"></h4>
         </div>
       </footer>
     </div>
-    <i id="up" class="bi bi-arrow-up-square text-primary fixed-bottom text-right mr-2"
+    <p id="up" class="bi bi-arrow-up-square fixed-bottom text-primary text-right m-1"
       style="font-size: 2rem; display: none;" role="button">
-    </i>
+    </p>
 
     <script>
       var shopping_cart = new Vue({
@@ -146,7 +146,7 @@
       $(window).scroll(function() {
         if ($(this).scrollTop() > 100) {
           if ($('#up').is(':hidden')) {
-            $('#up').css({opacity: 0.75}).fadeIn('slow');
+            $('#up').css({opacity: 0.8}).fadeIn('slow');
           }
         } else { $('#up').stop(true, false).fadeOut('fast'); }
       });

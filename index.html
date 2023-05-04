@@ -79,9 +79,9 @@
         </div>
       </footer>
     </div>
-    <i class="bi bi-arrow-up-square fixed-bottom text-primary text-right m-1"
-      style="font-size: 2rem; display: none;" role="button" id="up">
-    </i>
+    <div class="fixed-bottom text-right text-primary me-1" id="up" style="opacity: 0; font-size: 2.5rem;">
+      <i class="bi bi-arrow-up-square" role="button"></i>
+    </div>
 
     <script>
       var shopping_cart = new Vue({
@@ -113,6 +113,7 @@
       })
     </script>
     <script type="text/javascript">
+      // Дата, часы
       /* функция добавления ведущих нулей */
       /* (если число меньше десяти, перед числом добавляем ноль) */
       function zero_first_format(value)
@@ -141,20 +142,15 @@
       setInterval(function () {
           document.getElementById('current_date_time').innerHTML = date_time()
       }, 1000)
-    </script>
-    <script> // Кнопка вверх jQuery
-      $(window).scroll(function() {
-        if ($(this).scrollTop() > 100) {
-          if ($('#up').is(':hidden')) {
-            $('#up').css({opacity: 0.8}).fadeIn('slow');
-          }
-        } else { $('#up').stop(true, false).fadeOut('fast'); }
-      });
-      $('#up').click(function() {
-          $('html, body').stop().animate({scrollTop: 0}, 1000);
-      });
-    </script>
-    <script> // Анимация JavaScript
+
+      // Кнопка прокрутки страницы вверх
+      window.onload = function() {
+        let topBtn = document.getElementById('up');
+        topBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+        window.onscroll = () => window.scrollY > 50 ? topBtn.style.opacity = 0.75 : topBtn.style.opacity = 0
+      }
+ 
+      // Анимация
       document.getElementById("anim").animate([
         { transform: 'translateX(0vw)' }, 
         { transform: 'translateX(104vw)' }

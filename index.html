@@ -84,17 +84,20 @@
     </div>
 
     <script>
+      var cart_value = JSON.parse(localStorage.getItem('cart'))
+      if (cart_value == null) {cart_value = []}
       var shopping_cart = new Vue({
         el: '#shopping_cart',
         data: {
           list: '',
-          cart: [],
+          cart: cart_value,
           choice: null
         },
         methods: {
           remove(index) {
             // Удаление элемента
             this.cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(this.cart));
           },
           // Выбор модального окна
           add(chc) {
@@ -107,6 +110,7 @@
             }
             // Добавление элемента
             this.cart.push(this.list);
+            localStorage.setItem('cart', JSON.stringify(this.cart));
             this.list = '';
           }
         },

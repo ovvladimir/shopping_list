@@ -64,7 +64,7 @@
       </div>
     </header>
 
-    <main id="shopping_cart">
+    <main id="shoppingCart">
       <div class="container-fluid mx-auto mb-5">
         <div class="input-group-prepend my-3">
           <!-- button type="button" class="btn-close btn-close-white bg-white"></button -->
@@ -120,8 +120,8 @@
     <script>
       var cart_value = JSON.parse(localStorage.getItem('cart')); // Загрузка из локального хранилища
       if (cart_value == null) {cart_value = []};
-      let shopping_cart = new Vue({
-        el: '#shopping_cart',
+      let shoppingCart = new Vue({
+        el: '#shoppingCart',
         data: {
           list: '',
           cart: cart_value,
@@ -155,13 +155,16 @@
         el: '#MyList',
         methods: {
           addMyList(theme) {
-            localStorage.setItem(theme, JSON.stringify(shopping_cart.cart));
-            //console.log('добавили мой список в локальное хранилище');
+            localStorage.setItem(theme, JSON.stringify(shoppingCart.cart));
+            // console.log('добавили мой список в локальное хранилище');
           },
           loadMyList(theme) {
-            shopping_cart.cart = JSON.parse(localStorage.getItem(theme));
-            localStorage.setItem('cart', JSON.stringify(shopping_cart.cart));
-            //console.log('загрузили мой список из локального хранилища');
+            let newValue = localStorage.getItem(theme);
+            if (newValue != 'undefined') {
+              shoppingCart.cart = JSON.parse(localStorage.getItem(theme));
+              localStorage.setItem('cart', JSON.stringify(shoppingCart.cart));
+            };
+            // console.log('загрузили мой список из локального хранилища');
           }
         },
       })

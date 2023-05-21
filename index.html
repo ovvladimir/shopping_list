@@ -170,7 +170,7 @@
           },
           loadMyList(theme) {
             let newValue = localStorage.getItem(theme);
-            if (newValue != 'undefined') {
+            if (newValue != null) {
               vm.cart = JSON.parse(localStorage.getItem(theme));
               localStorage.setItem('cart', JSON.stringify(vm.cart));
             };

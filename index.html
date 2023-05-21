@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="bootstrap-5.2.3/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap-5.2.3/bootstrap-icons.css">
     <!-- Vue -->
-    <script src="js/vue.js"></script>
+    <script src="js/vue.global.js"></script>
   </head>
 
   <body>
@@ -118,15 +118,22 @@
     </div>
 
     <script>
-      var cart_value = JSON.parse(localStorage.getItem('cart')); // Загрузка из локального хранилища
-      if (cart_value == null) {cart_value = []};
-      let shoppingCart = new Vue({
-        el: '#shoppingCart',
-        data: {
-          list: '',
-          cart: cart_value,
-          choice: null
-        },
+      // START Vue-3
+      let getValueStorage = () => {
+        // Загрузка из локального хранилища
+        let val = JSON.parse(localStorage.getItem('cart'));
+        if (val == null) { return [] }
+        else { return val };
+      };
+      let cartValue = getValueStorage();
+
+      let { createApp } = Vue;
+      shoppingCart = {
+        data: () => ({
+            list: '',
+            cart: cartValue,
+            choice: null
+        }),
         methods: {
           remove(index) {
             // Удаление элемента
@@ -138,7 +145,7 @@
           add(chc) {
             this.choice = chc;
           },
-          addList: function() {
+          addList() {
             // Замена элемента
             if (this.list.toLowerCase() == 'песок') {
               this.list = 'сахар';
@@ -147,27 +154,32 @@
             this.cart.push(this.list);
             // Добавление в локальное хранилище
             localStorage.setItem('cart', JSON.stringify(this.cart));
+            // console.log(this.cart, 'добавили cart'); //
             this.list = '';
           }
         },
-      });
-      let lists = new Vue({
-        el: '#MyList',
+      };
+      let vm = createApp(shoppingCart).mount('#shoppingCart');
+      // console.log(vm.cart, 'получили значение cart')
+
+      lists = {
         methods: {
           addMyList(theme) {
-            localStorage.setItem(theme, JSON.stringify(shoppingCart.cart));
-            // console.log('добавили мой список в локальное хранилище');
+            localStorage.setItem(theme, JSON.stringify(vm.cart));
+            // console.log(vm.cart, 'добавили мой список в локальное хранилище');
           },
           loadMyList(theme) {
             let newValue = localStorage.getItem(theme);
             if (newValue != 'undefined') {
-              shoppingCart.cart = JSON.parse(localStorage.getItem(theme));
-              localStorage.setItem('cart', JSON.stringify(shoppingCart.cart));
+              vm.cart = JSON.parse(localStorage.getItem(theme));
+              localStorage.setItem('cart', JSON.stringify(vm.cart));
             };
             // console.log('загрузили мой список из локального хранилища');
           }
         },
-      })
+      };
+      createApp(lists).mount('#MyList');
+      // END Vue
 
       // Дата, часы
       /* функция добавления ведущих нулей */

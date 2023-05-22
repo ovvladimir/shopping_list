@@ -13,7 +13,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap-5.2.3/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap-5.2.3/bootstrap-icons.css">
-    <!-- Vue -->
+    <!-- Vue-3 -->
     <script src="js/vue.global.js"></script>
   </head>
 
@@ -67,17 +67,16 @@
     <main id="shoppingCart">
       <div class="container-fluid mx-auto mb-5">
         <div class="input-group-prepend my-3">
-          <!-- button type="button" class="btn-close btn-close-white bg-white"></button -->
           <input type="text" placeholder="введите покупку" class="form-control text-uppercase fs-4" v-model="list" v-on:keyup.enter="addList()">
         </div>
           <ul class="list-group">
           <!-- Loop -->
           <li v-for="(product, index) in cart" class="list-group-item list-group-item-action list-group-item-primary text-primary text-uppercase fs-3">
-            <span class="badge text-bg-primary me-2">{{index+1}}</span>
-            <a v-if="product.toUpperCase() === 'МОЛОКО'" v-on:click="add(product.toUpperCase())" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
-            <a v-else-if="product.toLowerCase() === 'milk'" v-on:click="add('МОЛОКО')" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">МОЛОКО</a>
-            <a v-else-if="product.toUpperCase() === 'ХЛЕБ'" v-on:click="add(product.toUpperCase())" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
-            <a v-else v-on:click="add(product.toUpperCase())" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
+            <span class="badge text-bg-primary me-3">{{index+1}}</span>
+            <a v-if="product === 'МОЛОКО'" v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
+            <a v-else-if="product === 'milk'" v-on:click="add('МОЛОКО')" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">МОЛОКО</a>
+            <a v-else-if="product === 'ХЛЕБ'" v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
+            <a v-else v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="text-break text-decoration-none">{{product}}</a>
             <button v-on:click="remove(index)" type="submit" class="btn btn-outline-danger float-end">Удалить</button>
           </li>
         </ul>
@@ -88,7 +87,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title text-primary">{{choice}}</h5>
+              <h5 class="modal-title text-primary text-break">{{choice}}</h5>
               <button type="button" class="btn-close btn-close-white bg-white" data-bs-dismiss="modal" aria-label="Close">
               </button>
             </div>
@@ -97,7 +96,7 @@
                 Естественное назначение молока — вскармливание потомства, которое ещё не способно переваривать другую пищу.</p>
               <p v-else-if="choice === 'ХЛЕБ'">Хлебобулочное изделие, получаемое путём выпекания теста (состоящего как минимум из муки и воды), 
                 разрыхлённого дрожжами или закваской.</p>
-              <p v-else class="text-center"><a :href="`${site}`" class="text-danger fs-5">{{site}}</a></p>
+              <p v-else class="text-center text-break"><a :href="`${site}`" class="text-danger fs-5">{{site}}</a></p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
@@ -119,7 +118,6 @@
     </div>
 
     <script>
-      // START Vue-3
       let getValueStorage = () => {
         // Загрузка из локального хранилища
         let val = JSON.parse(localStorage.getItem('cart'));
@@ -127,7 +125,7 @@
         else { return val };
       };
       let cartValue = getValueStorage();
-
+      // START Vue
       let { createApp } = Vue;
       shoppingCart = {
         data: () => ({
@@ -145,13 +143,13 @@
           },
           // Выбор модального окна
           add(chc) {
-            this.choice = chc;
-            this.site = `https://ru.wikipedia.org/wiki/${(chc[0] + chc.toLowerCase().slice(1))}`;
+            this.choice = chc.toUpperCase();
+            this.site = `https://ru.wikipedia.org/wiki/${(this.choice[0] + chc.toLowerCase().slice(1))}`;
           },
           addList() {
             // Замена элемента
             if (this.list.toLowerCase() == 'песок') {
-              this.list = 'сахар';
+              this.list = 'САХАР';
             }
             // Добавление элемента
             this.cart.push(this.list);

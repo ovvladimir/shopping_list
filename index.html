@@ -77,7 +77,7 @@
             <a v-if="product.toUpperCase() === 'МОЛОКО'" v-on:click="add(product.toUpperCase())" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
             <a v-else-if="product.toLowerCase() === 'milk'" v-on:click="add('МОЛОКО')" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">МОЛОКО</a>
             <a v-else-if="product.toUpperCase() === 'ХЛЕБ'" v-on:click="add(product.toUpperCase())" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
-            <a v-else>{{product}}</a>
+            <a v-else v-on:click="add(product.toUpperCase())" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
             <button v-on:click="remove(index)" type="submit" class="btn btn-outline-danger float-end">Удалить</button>
           </li>
         </ul>
@@ -97,6 +97,7 @@
                 Естественное назначение молока — вскармливание потомства, которое ещё не способно переваривать другую пищу.</p>
               <p v-else-if="choice === 'ХЛЕБ'">Хлебобулочное изделие, получаемое путём выпекания теста (состоящего как минимум из муки и воды), 
                 разрыхлённого дрожжами или закваской.</p>
+              <p v-else class="text-center"><a :href="`${site}`" class="text-danger fs-5">{{site}}</a></p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
@@ -132,7 +133,8 @@
         data: () => ({
             list: '',
             cart: cartValue,
-            choice: null
+            choice: null,
+            site: null
         }),
         methods: {
           remove(index) {
@@ -144,6 +146,7 @@
           // Выбор модального окна
           add(chc) {
             this.choice = chc;
+            this.site = `https://ru.wikipedia.org/wiki/${(chc[0] + chc.toLowerCase().slice(1))}`;
           },
           addList() {
             // Замена элемента

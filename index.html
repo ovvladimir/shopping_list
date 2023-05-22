@@ -73,10 +73,7 @@
           <!-- Loop -->
           <li v-for="(product, index) in cart" class="list-group-item list-group-item-action list-group-item-primary text-primary text-uppercase fs-3">
             <span class="badge text-bg-primary me-3">{{index+1}}</span>
-            <a v-if="product === 'МОЛОКО'" v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
-            <a v-else-if="product === 'milk'" v-on:click="add('МОЛОКО')" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">МОЛОКО</a>
-            <a v-else-if="product === 'ХЛЕБ'" v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{product}}</a>
-            <a v-else v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="text-break text-decoration-none">{{product}}</a>
+            <a v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="text-break text-decoration-none">{{product}}</a>
             <button v-on:click="remove(index)" type="submit" class="btn btn-outline-danger float-end">Удалить</button>
           </li>
         </ul>
@@ -148,9 +145,8 @@
           },
           addList() {
             // Замена элемента
-            if (this.list.toLowerCase().trim() == 'песок') {
-              this.list = 'САХАР';
-            }
+            if (this.list.toLowerCase().trim() == 'milk') { this.list = 'МОЛОКО' }
+            else if (this.list.toLowerCase().trim() == 'bread') { this.list = 'ХЛЕБ' };
             // Добавление элемента
             this.cart.push(this.list);
             // Добавление в локальное хранилище

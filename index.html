@@ -143,12 +143,12 @@
           },
           // Выбор модального окна
           add(chc) {
-            this.choice = chc.toUpperCase();
-            this.site = `https://ru.wikipedia.org/wiki/${(this.choice[0] + chc.toLowerCase().slice(1))}`;
+            this.choice = chc.toUpperCase().trim();
+            this.site = `https://ru.wikipedia.org/wiki/${(this.choice[0] + this.choice.toLowerCase().slice(1))}`;
           },
           addList() {
             // Замена элемента
-            if (this.list.toLowerCase() == 'песок') {
+            if (this.list.toLowerCase().trim() == 'песок') {
               this.list = 'САХАР';
             }
             // Добавление элемента

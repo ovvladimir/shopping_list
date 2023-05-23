@@ -72,7 +72,7 @@
           <ul class="list-group">
           <!-- Loop -->
           <li v-for="(product, index) in cart" class="list-group-item list-group-item-action list-group-item-primary text-primary text-uppercase fs-3">
-            <span class="badge text-bg-primary me-3">{{index+1}}</span>
+            <span class="badge text-bg-primary me-2">{{index+1}}</span>
             <a v-on:click="add(product)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" class="text-break text-decoration-none">{{product}}</a>
             <button v-on:click="remove(index)" type="submit" class="btn btn-outline-danger float-end">Удалить</button>
           </li>

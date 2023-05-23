@@ -35,12 +35,12 @@
             <nav class="flex-wrap flex-lg-nowrap" aria-label="navigation">
               <div class="nav-item dropdown">
                 <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" type="button" aria-expanded="false" data-bs-toggle="dropdown">
-                  <i class="bi bi-card-list fs-1" id="icon-active"></i>
-                  <span class="d-lg-none" id="bd-theme-text"></span>
+                  <i class="bi bi-card-list fs-1"></i>
+                  <span class="d-lg-none"></span>
                 </button>
-                <ul id="MyList" class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+                <ul id="MyList" class="dropdown-menu dropdown-menu-end">
                   <li>
-                    <button v-on:click="addMyList('myList')" type="button" class="dropdown-item d-flex align-items-center text-primary fs-5">
+                    <button v-on:click="addMyList('myList')" type="button" class="dropdown-item d-flex align-items-center fs-5">
                       <i class="bi bi-list-ol text-primary fs-4 me-2"></i>
                       СОХРАНИТЬ МОЙ СПИСОК
                     </button>
@@ -48,7 +48,7 @@
                   <li><hr class="dropdown-divider"></li>
                   <li><hr class="dropdown-divider"></li>
                   <li>
-                    <button v-on:click="loadMyList('myList')" type="button" class="dropdown-item d-flex align-items-center text-primary fs-5">
+                    <button v-on:click="loadMyList('myList')" type="button" class="dropdown-item d-flex align-items-center fs-5">
                       <i class="bi bi-list-ol text-primary fs-4 me-2"></i>
                       ПОКАЗАТЬ МОЙ СПИСОК&ensp;
                     </button>
@@ -146,11 +146,13 @@
           addList() {
             // Замена элемента
             if (this.list.toLowerCase().trim() == 'milk') { this.list = 'МОЛОКО' }
-            else if (this.list.toLowerCase().trim() == 'bread') { this.list = 'ХЛЕБ' };
-            // Добавление элемента
-            this.cart.push(this.list);
-            // Добавление в локальное хранилище
-            localStorage.setItem('cart', JSON.stringify(this.cart));
+            else if (this.list.toLowerCase().trim() == 'bread') { this.list = 'ХЛЕБ' }
+            else if (this.list.trim() != "") {
+              // Добавление элемента
+              this.cart.push(this.list);
+              // Добавление в локальное хранилище
+              localStorage.setItem('cart', JSON.stringify(this.cart))
+            };
             // console.log(this.cart, 'добавили cart'); //
             this.list = '';
           }

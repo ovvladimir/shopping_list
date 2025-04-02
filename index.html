@@ -60,7 +60,7 @@
         </div>
       </div>
       </div>
-        <img id="anim" src="ico/favicon-32x32.png" style="position: relative; left: -50px;">
+        <img id="anim" src="ico/favicon-32x32.png" style="position: relative; left: -32px;">
       </div>
     </header>
 
@@ -224,9 +224,9 @@
       }
 
       // Анимация
-      document.getElementById("anim").animate([
-        { transform: 'translateX(0vw)' }, 
-        { transform: 'translateX(104vw)' }
+      document.getElementById('anim').animate([
+        { transform: 'translateX(-32px)' }, 
+        { transform: 'translateX(100vw) translateX(+32px)' }
       ], {
         duration: 30000,
         iterations: Infinity
